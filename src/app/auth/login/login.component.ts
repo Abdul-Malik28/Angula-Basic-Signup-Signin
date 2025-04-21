@@ -22,10 +22,6 @@ export class LoginComponent {
         const savedEmail = loadedFormData.email;
 
         setTimeout(() => {
-          // this.form().setValue({
-          //   email: savedEmail,
-          //   password: ''
-          // });
           this.form().controls['email'].setValue(savedEmail);
         }, 1);
       }
