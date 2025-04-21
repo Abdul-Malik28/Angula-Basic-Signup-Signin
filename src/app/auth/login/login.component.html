@@ -45,4 +45,12 @@
 
     <button class="button">Login</button>
   </div>
+
+  <!-- @if(form.controls.email.touched && form.controls.email.dirty && form.controls.email.invalid){ -->
+  @if(IsEmailInvalid){
+    <p class="control-error">Please enter a valid email address.</p>
+  }
+  @if(IsPasswordInvalid){
+    <p class="control-error">Please enter a valid password - at leas 6 characters long.</p>
+  }
 </form>
