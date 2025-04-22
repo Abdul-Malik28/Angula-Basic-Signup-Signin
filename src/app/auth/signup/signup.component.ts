@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-function equalValues(control: AbstractControl) {
-  // const password = control.controls.password;    // we can't do this! TS doesn't allow it
+function equalValues(controlName1: string, controlName2: string) {
 
-  const password = control.get('password')?.value;
-  const confirmPassword = control.get('confirmPassword')?.value;
+  return (control: AbstractControl) => {
+    const val1 = control.get(controlName1)?.value;
+    const val2 = control.get(controlName2)?.value;
 
-  if (password === confirmPassword) {
-    return null;
-  }
+    if (val1 === val2) {
+      return null;
+    }
 
-  return { passwordsNotEqual: true };
+    return { valuesNotEqual: true };
+  };
 }
 
 @Component({
@@ -33,7 +34,7 @@ export class SignupComponent {
       confirmPassword: new FormControl('', {
         validators: [Validators.required, Validators.minLength(6)]
       }),
-    }, { validators: [equalValues] }),
+    }, { validators: [equalValues('password', 'confirmPassword')] }),
     firstName: new FormControl('', { validators: [Validators.required] }),
     lastName: new FormControl('', { validators: [Validators.required] }),
     address: new FormGroup({
